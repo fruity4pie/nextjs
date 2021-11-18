@@ -1,14 +1,29 @@
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from '@mui/material/styles';
+import { CacheProvider, EmotionCache } from '@emotion/react';
 
+import theme from '../theme';
+import createEmotionCache from '../createEmotionCache';
 import Layout from '../components/layout';
 
 const MYBLOG: string = 'My Blog';
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache();
+
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache;
+}
+
+export default function MyApp({
+  Component,
+  emotionCache = clientSideEmotionCache,
+  pageProps,
+}: MyAppProps) {
   return (
-    <>
+    <CacheProvider value={emotionCache}>
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <meta name="description" content={pageProps.meta ?? MYBLOG} />
@@ -19,11 +34,13 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
         />
       </Head>
-      <CssBaseline>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </CssBaseline>
-    </>
+      <ThemeProvider theme={theme}>
+        <CssBaseline>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </CssBaseline>
+      </ThemeProvider>
+    </CacheProvider>
   );
 }
