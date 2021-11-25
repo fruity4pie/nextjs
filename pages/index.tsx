@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 import { Container, Typography } from '@mui/material';
-import axios from 'axios';
 
 const Home: NextPage = () => {
   return (
