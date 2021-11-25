@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react';
 import Link from 'next/link';
-import { AppBar, Container, Toolbar } from '@mui/material';
+import { AppBar, Container, Toolbar, Typography } from '@mui/material';
+import { GetStaticProps } from 'next';
+import axios from 'axios';
 
 import { StyledLink } from './styles';
 
@@ -8,20 +10,21 @@ type LayoutProps = {
   children: ReactNode;
 };
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = (props: LayoutProps) => {
   return (
     <div>
       <AppBar position="static">
         <Toolbar variant="dense">
           <Link href="/">
-            <StyledLink href="/">My Blog</StyledLink>
+            <StyledLink href="/">Home</StyledLink>
           </Link>
-          <Link href="/posts">
-            <StyledLink href="/posts">Posts</StyledLink>
+          <Link href="/blog">
+            <StyledLink href="/blog">Blog</StyledLink>
           </Link>
+          <Typography>{props.blogPostsLength}</Typography>
         </Toolbar>
       </AppBar>
-      <Container>{children}</Container>
+      <Container>{props.children}</Container>
     </div>
   );
 };

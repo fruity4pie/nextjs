@@ -10,14 +10,13 @@ import Layout from '../components/layout';
 
 const MYBLOG: string = 'My Blog';
 
-// Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
 interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
 }
 
-export default function MyApp({
+function MyApp({
   Component,
   emotionCache = clientSideEmotionCache,
   pageProps,
@@ -44,3 +43,5 @@ export default function MyApp({
     </CacheProvider>
   );
 }
+
+export default MyApp;

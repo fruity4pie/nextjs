@@ -1,12 +1,8 @@
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
 import { Container, Typography } from '@mui/material';
+import axios from 'axios';
 
 const Home: NextPage = () => {
-  const router = useRouter();
-
-  console.log(router);
-
   return (
     <Container>
       <Typography variant="h1">Blog</Typography>
@@ -25,5 +21,16 @@ const Home: NextPage = () => {
     </Container>
   );
 };
+
+//No idea what to fetch and revalidate here
+
+// export async function getStaticProps() {
+//   return {
+//     props: {
+//       smth: response?.data?.length ?? '',
+//     },
+//     revalidate: 300,
+//   };
+// }
 
 export default Home;
